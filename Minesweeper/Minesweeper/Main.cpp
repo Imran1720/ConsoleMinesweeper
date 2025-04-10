@@ -1,9 +1,14 @@
-#include "GameService.h"
+#include "GameLoop.h"
 
-using namespace Gameplay;
+using namespace Main;
 
 int main()
 {
+	GameLoop* game_loop = new GameLoop();
+
+	game_loop->Play();
+
+	delete game_loop;
 
 	return 0;
 }
