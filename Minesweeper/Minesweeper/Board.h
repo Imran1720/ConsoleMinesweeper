@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 
 namespace Gameplay
 {
@@ -12,14 +13,18 @@ namespace Gameplay
 				int number_of_mines;
 				int board[number_of_rows][number_of_columns] = {0};
 
-				void InitializeBoard();
+				std::default_random_engine random_engine;
+				std::random_device random_device;
+
+				int GetRandomPositionX(int max_x);
+				int GetRandomPositionY(int max_y);
 
 			public:
 				Board();
 				~Board();
 
 				void GenerateBoard();
-				void PlaceMines(int position_x, int position_y);
+				void PlaceMines(int x_position, int y_position);
 				void CalculateAdjacentMines();
 				void DisplayBoard();
 

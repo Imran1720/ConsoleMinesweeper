@@ -24,7 +24,7 @@ namespace Main
 
 	void GameLoop::GetPlayerInput()
 	{
-		cout << "Enter X coordinate of cell : ";
+		cout << "\n\nEnter X coordinate of cell : ";
 		cin >> cell_position_x;
 		cout << "Enter Y coordinate of cell : ";
 		cin >> cell_position_y;
@@ -50,8 +50,9 @@ namespace Main
 			GetPlayerInput();
 			if (is_first_cell)
 			{
-				//game_board->PlaceMines();
-
+				game_board->PlaceMines(cell_position_x,cell_position_y);
+				game_board->DisplayBoard();
+				is_first_cell = false;
 			}
 		}
 		else
