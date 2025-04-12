@@ -38,8 +38,23 @@ namespace Gameplay
 			}
 
 		}
-		void Board::CalculateAdjacentMines()
+		int Board::CalculateAdjacentMines(int x_position, int y_position)
 		{
+			int count = 0;
+
+			for (int i = x_position - 1; i <= x_position + 1; i++)
+			{
+				for (int j = y_position - 1; j <= y_position + 1; j++)
+				{
+					if (i != x_position && j != y_position && ValidCellPosition(i, j) && board[i][j]==9)
+					{
+						count++;
+					}
+				}
+			}
+
+			return count;
+			
 		}
 		void Board::DisplayBoard()
 		{
@@ -52,7 +67,7 @@ namespace Gameplay
 				cout << endl;
 				for (int j = 0; j < number_of_columns; j++)
 				{
-					cout << "| "<< (board[i][j]!=9 ? " " : "9" )<< " ";
+					cout << "| "<< (board[i][j])<< " ";
 
 					if (j == number_of_columns - 1)
 					{
@@ -67,6 +82,25 @@ namespace Gameplay
 				}
 		}
 
+		void Board::OpenCell(int x_position, int y_position)
+		{
+			
+		}
+
+		void Board::InitializeCells()
+		{
+			for (int i = 0; i < number_of_rows; i++)
+			{
+				for (int j = 0; j < number_of_columns; j++)
+				{
+					if (!HasMine(i, j))
+					{
+						board[i][j] = CalculateAdjacentMines(i, j);
+					}
+				}
+			}
+		}
+
 
 		int Board::GetRandomPositionX(int max_x)
 		{
@@ -78,6 +112,19 @@ namespace Gameplay
 		{
 			std::uniform_int_distribution<int> yDistribution(0, max_y);
 			return yDistribution(random_engine);
+		}
+		bool Board::HasMine(int x_position, int y_position)
+		{
+			return (board[x_position][y_position] == 9);
+		}
+		bool Board::ValidCellPosition(int x_position, int y_position)
+		{
+
+			if ((x_position >= 0 && x_position < number_of_rows) && (y_position >= 0 && y_position < number_of_columns))
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

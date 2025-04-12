@@ -19,15 +19,19 @@ namespace Gameplay
 				int GetRandomPositionX(int max_x);
 				int GetRandomPositionY(int max_y);
 
+				bool HasMine(int x_position, int y_position);
+				bool ValidCellPosition(int x_position, int y_position);
+
 			public:
 				Board();
 				~Board();
 
 				void GenerateBoard();
 				void PlaceMines(int x_position, int y_position);
-				void CalculateAdjacentMines();
+				int CalculateAdjacentMines(int x_position, int y_position);
 				void DisplayBoard();
-
+				void OpenCell(int x_position, int y_position);
+				void InitializeCells();
 
 		};
 	}

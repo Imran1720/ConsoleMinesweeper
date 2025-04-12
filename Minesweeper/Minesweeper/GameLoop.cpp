@@ -28,8 +28,6 @@ namespace Main
 		cin >> cell_position_x;
 		cout << "Enter Y coordinate of cell : ";
 		cin >> cell_position_y;
-
-
 	}
 
 	void GameLoop::OpenCell(int position_x, int position_y)
@@ -51,6 +49,7 @@ namespace Main
 			if (is_first_cell)
 			{
 				game_board->PlaceMines(cell_position_x,cell_position_y);
+				game_board->InitializeCells();
 				game_board->DisplayBoard();
 				is_first_cell = false;
 			}
