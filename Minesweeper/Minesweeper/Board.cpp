@@ -30,23 +30,22 @@ namespace Gameplay
 
 				bool is_selected_cell = (random_x_position == x_position) && (random_y_position == y_position);
 
-				if (board[random_x_position][random_y_position] != 9 && ! is_selected_cell)
+				if (!board[random_x_position][random_y_position].IsMine() && ! is_selected_cell)
 				{
-					board[random_x_position][random_y_position] = 9;
+					board[random_x_position][random_y_position].SetCellValue(9);//change this magic number
 					number_of_mines--;
 				}
 			}
-
 		}
 		int Board::CalculateAdjacentMines(int x_position, int y_position)
 		{
 			int count = 0;
-
+				
 			for (int i = x_position - 1; i <= x_position + 1; i++)
 			{
 				for (int j = y_position - 1; j <= y_position + 1; j++)
 				{
-					if (i != x_position && j != y_position && ValidCellPosition(i, j) && board[i][j]==9)
+					if (i != x_position && j != y_position && ValidCellPosition(i, j) && board[i][j].IsMine())
 					{
 						count++;
 					}
@@ -67,7 +66,7 @@ namespace Gameplay
 				cout << endl;
 				for (int j = 0; j < number_of_columns; j++)
 				{
-					cout << "| "<< (board[i][j])<< " ";
+					cout << "| " << GetCellValue(board[i][j]) << " ";
 
 					if (j == number_of_columns - 1)
 					{
@@ -93,9 +92,9 @@ namespace Gameplay
 			{
 				for (int j = 0; j < number_of_columns; j++)
 				{
-					if (!HasMine(i, j))
+					if (!board[i][j].IsMine())
 					{
-						board[i][j] = CalculateAdjacentMines(i, j);
+						board[i][j].SetCellValue(CalculateAdjacentMines(i, j));
 					}
 				}
 			}
@@ -113,10 +112,7 @@ namespace Gameplay
 			std::uniform_int_distribution<int> yDistribution(0, max_y);
 			return yDistribution(random_engine);
 		}
-		bool Board::HasMine(int x_position, int y_position)
-		{
-			return (board[x_position][y_position] == 9);
-		}
+		
 		bool Board::ValidCellPosition(int x_position, int y_position)
 		{
 
@@ -125,6 +121,38 @@ namespace Gameplay
 				return true;
 			}
 			return false;
+		}
+		char Board::GetCellValue(Cell cell)
+		{
+			if (cell.GetCellState() == CellState::OPENED)
+			{
+				return '0'+cell.GetCellValue();
+			}
+
+			return ' ';
+		}
+		void Board::RevealAllMines()
+		{
+			for (int i = 0; i < number_of_rows; i++)
+			{
+				for (int j = 0; j < number_of_columns; j++)
+				{
+					if (board[i][j].IsMine())
+					{
+						board[i][j].SetState(CellState::OPENED);
+					}
+				}
+			}
+		}
+		void Board::RevealAllCells()
+		{
+			for (int i = 0; i < number_of_rows; i++)
+			{
+				for(int j=0;j<number_of_columns;j++)
+				{
+					board[i][j].SetState(CellState::OPENED);
+				}
+			}
 		}
 	}
 }

@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Gameplay\Board">
       <UniqueIdentifier>{7b3ab2bc-b037-415d-9dce-7a7cda246dc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay\Cell">
+      <UniqueIdentifier>{92a2c015-cac0-4cb3-9055-4912990a465b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay\Cell">
+      <UniqueIdentifier>{b87a340a-c587-4072-b795-ff14435a05bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,6 +57,9 @@
     <ClCompile Include="Board.cpp">
       <Filter>Source Files\Gameplay\Board</Filter>
     </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Source Files\Gameplay\Cell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -61,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Board.h">
       <Filter>Header Files\Gameplay\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Header Files\Gameplay\Cell</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
