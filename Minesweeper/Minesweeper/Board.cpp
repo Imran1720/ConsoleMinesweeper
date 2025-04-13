@@ -9,9 +9,9 @@ namespace Gameplay
 		
 		Board::Board():random_engine(random_device())
 		{
-			number_of_mines = number_of_rows - 1;
+			max_number_of_mines = number_of_rows;
 			opened_cell_count = 0;
-			
+			is_game_over = false;
 		}
 
 		Board::~Board()
@@ -25,10 +25,11 @@ namespace Gameplay
 
 		void Board::PlaceMines(int x_position,int y_position)
 		{
+			int number_of_mines = max_number_of_mines;
 			while (number_of_mines > 0)
 			{
-				int random_x_position = GetRandomPositionX(number_of_rows);
-				int random_y_position = GetRandomPositionY(number_of_columns);
+				int random_x_position = GetRandomPositionX(number_of_rows-1);
+				int random_y_position = GetRandomPositionY(number_of_columns-1);
 
 				bool is_selected_cell = (random_x_position == x_position) && (random_y_position == y_position);
 
@@ -75,8 +76,6 @@ namespace Gameplay
 						cout << "|" << endl;
 					}
 				}
-				
-
 			}
 				for (int j = 0; j < number_of_columns; j++)
 				{
@@ -86,13 +85,17 @@ namespace Gameplay
 
 		void Board::OpenCell(int x_position, int y_position)
 		{
+			if (board[x_position][y_position].GetCellValue() == 9)
+			{
+				is_game_over = true;
+				return;
+			}
 			if(board[x_position][y_position].GetCellState() == CellState::OPENED)
 			{
 				return;
 			}
 			opened_cell_count++;
 			board[x_position][y_position].SetState(CellState::OPENED);
-			DisplayBoard();
 		}
 
 		void Board::InitializeCells()
@@ -107,6 +110,16 @@ namespace Gameplay
 					}
 				}
 			}
+		}
+
+		bool Board::IsGameLost()
+		{
+			return is_game_over;
+		}
+
+		bool Board::IsGameWon()
+		{
+			return (opened_cell_count >= (number_of_rows * number_of_columns) - max_number_of_mines);
 		}
 
 
@@ -135,6 +148,10 @@ namespace Gameplay
 		{
 			if (cell.GetCellState() == CellState::OPENED)
 			{
+				if (cell.GetCellValue() == 9)
+				{
+					return '*';
+				}
 				return '0'+cell.GetCellValue();
 			}
 

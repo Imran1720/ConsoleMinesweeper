@@ -10,10 +10,13 @@ namespace Gameplay
 		class Board
 		{
 			private:
-				static const int number_of_rows = 10;
-				static const int number_of_columns = 10;
-				int number_of_mines;
+				static const int number_of_rows = 5;
+				static const int number_of_columns = 5;
+				int max_number_of_mines;
 				int opened_cell_count;
+
+				bool is_game_over;
+
 				Cell board[number_of_rows][number_of_columns];
 
 				std::default_random_engine random_engine;
@@ -38,6 +41,8 @@ namespace Gameplay
 				void DisplayBoard();
 				void OpenCell(int x_position, int y_position);
 				void InitializeCells();
+				bool IsGameLost();
+				bool IsGameWon();
 
 		};
 	}
