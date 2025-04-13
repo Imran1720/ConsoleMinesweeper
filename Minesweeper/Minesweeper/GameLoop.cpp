@@ -50,9 +50,10 @@ namespace Main
 			{
 				game_board->PlaceMines(cell_position_x,cell_position_y);
 				game_board->InitializeCells();
-				game_board->DisplayBoard();
+
 				is_first_cell = false;
 			}
+			game_board->OpenCell(cell_position_x, cell_position_y);
 		}
 		else
 		{

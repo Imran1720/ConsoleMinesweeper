@@ -13,6 +13,7 @@ namespace Gameplay
 				static const int number_of_rows = 10;
 				static const int number_of_columns = 10;
 				int number_of_mines;
+				int opened_cell_count;
 				Cell board[number_of_rows][number_of_columns];
 
 				std::default_random_engine random_engine;
@@ -24,13 +25,13 @@ namespace Gameplay
 				bool ValidCellPosition(int x_position, int y_position);
 
 				char GetCellValue(Cell cell);
-				void RevealAllCells();
 				void RevealAllMines();
 
 			public:
 				Board();
 				~Board();
 
+				void RevealAllCells();
 				void GenerateBoard();
 				void PlaceMines(int x_position, int y_position);
 				int CalculateAdjacentMines(int x_position, int y_position);

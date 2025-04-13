@@ -10,6 +10,8 @@ namespace Gameplay
 		Board::Board():random_engine(random_device())
 		{
 			number_of_mines = number_of_rows - 1;
+			opened_cell_count = 0;
+			
 		}
 
 		Board::~Board()
@@ -51,7 +53,6 @@ namespace Gameplay
 					}
 				}
 			}
-
 			return count;
 			
 		}
@@ -59,6 +60,7 @@ namespace Gameplay
 		{
 			for (int i = 0; i < number_of_rows; i++)
 			{
+				cout<<endl;
 				for (int j = 0; j < number_of_columns; j++)
 				{
 					cout << "----";
@@ -73,6 +75,7 @@ namespace Gameplay
 						cout << "|" << endl;
 					}
 				}
+				
 
 			}
 				for (int j = 0; j < number_of_columns; j++)
@@ -83,7 +86,13 @@ namespace Gameplay
 
 		void Board::OpenCell(int x_position, int y_position)
 		{
-			
+			if(board[x_position][y_position].GetCellState() == CellState::OPENED)
+			{
+				return;
+			}
+			opened_cell_count++;
+			board[x_position][y_position].SetState(CellState::OPENED);
+			DisplayBoard();
 		}
 
 		void Board::InitializeCells()
