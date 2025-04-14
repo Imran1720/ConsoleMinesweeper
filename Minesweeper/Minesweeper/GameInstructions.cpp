@@ -7,11 +7,6 @@ namespace Gameplay
 	{
 		using namespace std;
 		
-		GameInstructions::GameInstructions()
-		{
-
-		}
-
 		void GameInstructions::LoadInstructions()
 		{
 			DisplayTitle();
@@ -28,6 +23,7 @@ namespace Gameplay
 			cout << "---------------------------------------------------------" << endl;
 			cout << endl << endl;
 		}
+
 		void GameInstructions::DisplayRules()
 		{
 			cout << "RULES:" << endl;
@@ -38,6 +34,7 @@ namespace Gameplay
 			cout << "5. Interact, evolve and enjoy!" << endl;
 			cout << endl << endl;
 		}
+
 		void GameInstructions::DisplayHowToPlay()
 		{
 			cout << "HOW TO PLAY:" << endl;

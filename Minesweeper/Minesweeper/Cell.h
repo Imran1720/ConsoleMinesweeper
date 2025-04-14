@@ -17,11 +17,14 @@ namespace Gameplay
 				CellState cell_state;
 
 			public:
-				void SetCellValue(int value);
-				void SetState(CellState state);
-				int GetCellValue();
-				CellState GetCellState();
+				Cell();
 
+				void SetState(CellState state);
+				void SetCellValue(int value);
+				
+				CellState GetCellState();
+				int GetCellValue();
+				
 				bool IsMine();
 		};
 	}

@@ -1,103 +1,120 @@
 #include "GameLoop.h"
+#include "GameInstructions.h"
+#include "Board.h"
 #include <iostream>
+#include <limits>
 
 namespace Main
 {
 	using namespace std;
+	using namespace Gameplay::Intro;
+	using namespace Gameplay::GameBoard;
+
 	GameLoop::GameLoop()
 	{
-		is_game_over = false;
 		is_first_cell = true;
 		is_game_running = true;
+		
 		game_intro = new GameInstructions();
 		game_board = new Board();
+
+		cell_position_upper_limit = game_board->GetPositionUpperLimit();
+		cell_position_lower_limit = 0;
 	}
 
 	GameLoop::~GameLoop()
 	{
-		Destroy();
+		CleanUp();
 	}
 
-	bool GameLoop::IsGameRunning()
+	void GameLoop::LoadInstructions()
 	{
-		return is_game_over;
+		game_intro->LoadInstructions();
+	}
+
+	bool GameLoop::WaitForPlayerReady()
+	{
+		cout << "\n\nWhen you are ready to play, please input S or s :" << endl;
+		char choice;
+		cin >> choice;
+
+		return (choice == 's' || choice == 'S');
 	}
 
 	void GameLoop::GetPlayerInput()
 	{
-		cout << "\n\nEnter X coordinate of cell : ";
-		cin >> cell_position_x;
-		cout << "Enter Y coordinate of cell : ";
-		cin >> cell_position_y;
-	}
-
-	void GameLoop::OpenCell(int position_x, int position_y)
-	{
-
+		GetInput('X', cell_position_x);
+		GetInput('Y', cell_position_y);
 	}
 
 	void GameLoop::Play()
 	{
-		game_intro->LoadInstructions();
+		game_board->DisplayBoard();
+		GetPlayerInput();
 
-		cout << "\n\nWhen you are ready to play, please input S or s :" << endl;
-		char choice;
-		cin >> choice;
-		if (choice == 's' || choice == 'S')
+		if (is_first_cell)
 		{
-			while (is_game_running )
-			{
-				game_board->DisplayBoard();
-				GetPlayerInput();
-				if (is_first_cell)
-				{
-					game_board->PlaceMines(cell_position_x, cell_position_y);
-					game_board->InitializeCells();
-					is_first_cell = false;
-				}
-
-				game_board->OpenCell(cell_position_x, cell_position_y);
-				if (CheckGameEnd())
-				{
-					break;
-				}
-
-
-			}
+			game_board->PlaceMines(cell_position_x, cell_position_y);
+			game_board->InitializeCells();
+			is_first_cell = false;
 		}
-		HandleGameOver();
+
+		game_board->OpenCell(cell_position_x, cell_position_y);
 	}
 
-	void GameLoop::Destroy()
+	bool GameLoop::IsGameRunning()
+	{
+		is_game_running = !IsGameOver();
+		return is_game_running;
+	}
+
+	bool GameLoop::IsGameOver()
+	{
+		return (game_board->OpenedAllCells() || game_board->OpenedMine());
+	}
+
+	void GameLoop::HandleGameOver()
+	{
+		game_board->DisplayBoard();
+		PrintGameEndMessage();
+		cout << endl << endl;
+	}
+
+	void GameLoop::PrintGameEndMessage()
+	{
+		cout << "\n\n---------------------------------------------------------" << endl;
+		
+		if (game_board->OpenedAllCells())
+		{
+			cout << "|\t\t\tYOU WON!!\t\t\t|" << endl;
+		}
+		else if (game_board->OpenedMine())
+		{
+			cout << "|\t\t       GAME OVER!!   \t\t\t|" << endl;
+		}
+
+		cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
+		cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
+		cout << "---------------------------------------------------------" << endl;
+
+		cin.clear();
+	}
+
+	void GameLoop::GetInput(char coordinateLabel, int& cell_position)
+	{
+		do {
+			cout << "\n\nEnter " << coordinateLabel << " coordinate of cell (";
+			cout << cell_position_lower_limit << "-" << cell_position_upper_limit << "):";
+
+			cin >> cell_position;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		} while (cell_position < 0 || cell_position>cell_position_upper_limit);
+	}
+
+	void GameLoop::CleanUp()
 	{
 		delete game_intro;
 		delete game_board;
-	}
-	void GameLoop::HandleGameOver()
-	{
-		if (game_board->IsGameWon())
-		{
-			cout << "---------------------------------------------------------" << endl;
-			cout << "|\t\t\tYOU WON!!\t\t\t|" << endl;
-			cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
-			cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
-			cout << "---------------------------------------------------------" << endl;
-			cout << endl << endl;
-		}
-
-		if (game_board->IsGameLost())
-		{
-			cout << "---------------------------------------------------------" << endl;
-			cout << "|\t\t\tGAME OVER!!\t\t\t|" << endl;
-			cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
-			cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
-			cout << "---------------------------------------------------------" << endl;
-			cout << endl << endl;
-		}
-	}
-	bool GameLoop::CheckGameEnd()
-	{
-
-		return (game_board->IsGameWon() || game_board->IsGameLost());
 	}
 }

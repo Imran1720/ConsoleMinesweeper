@@ -12,8 +12,6 @@ namespace Gameplay
 				void DisplayHowToPlay();
 
 			public:
-				GameInstructions();
-
 				void LoadInstructions();
 		};
 	}

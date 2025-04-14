@@ -1,46 +1,56 @@
 #pragma once
-#include "GameInstructions.h"
-#include "Board.h"
+namespace Gameplay 
+{
+	namespace Intro 
+	{
+		class GameInstructions;
+	}
 
+	namespace GameBoard
+	{
+		class Board;
+	}
+}
 
-//namespace Gameplay
-//{
-//	namespace Intro
-//	{
-//		class GameInstructions;
-//	}
-//}
 namespace Main
 {
-	using namespace Gameplay::Intro;
-	using namespace Gameplay::GameBoard;
 	class GameLoop
 	{
 		private:
-			bool is_game_over;
-			GameInstructions* game_intro;
-			Board* game_board;
+			//Dependencies
+			Gameplay::Intro::GameInstructions* game_intro;
+			Gameplay::GameBoard::Board * game_board;
+
+			//Cell position
 			int cell_position_x;
 			int cell_position_y;
 
+			int cell_position_upper_limit;
+			int cell_position_lower_limit;
+
+			//Game state
 			bool is_first_cell;
 			bool is_game_running;
 
-			void Destroy();
-
-			void HandleGameOver();
-
-			bool CheckGameEnd();
+			//Internal Helpers
+			void CleanUp();
+			bool IsGameOver();
 
 		public:
 			GameLoop();
 			~GameLoop();
 
+			//Game Flow
+			void LoadInstructions();
+			bool WaitForPlayerReady();
 			void Play();
-			bool IsGameRunning();
-
 			void GetPlayerInput();
-			void OpenCell(int position_x, int position_y);
+			void HandleGameOver();
 
+			void PrintGameEndMessage();
+			void GetInput(char coordinateLabel, int &cell_position);
+
+			//State Check
+			bool IsGameRunning();
 	};
 }
