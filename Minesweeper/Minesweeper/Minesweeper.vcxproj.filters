@@ -19,6 +19,18 @@
     <Filter Include="Source Files\Main">
       <UniqueIdentifier>{2dba5ef9-503f-463c-8e68-456a6ebd82af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay">
+      <UniqueIdentifier>{9c3996b7-8652-4658-9464-8cdef0e2c62b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay">
+      <UniqueIdentifier>{a0cc40c7-50f3-4b45-9d1e-139966cc218b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameplay\Intro">
+      <UniqueIdentifier>{77913e68-7a70-4c25-a1dd-a187f1b62280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay\Intro">
+      <UniqueIdentifier>{62cc27c5-2898-44c6-b45d-8d6e4cce1ab4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -27,10 +39,16 @@
     <ClCompile Include="GameLoop.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
+    <ClCompile Include="GameInstructions.cpp">
+      <Filter>Source Files\Gameplay\Intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInstructions.h">
+      <Filter>Header Files\Gameplay\Intro</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
