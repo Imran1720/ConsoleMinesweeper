@@ -29,6 +29,7 @@ A classic Minesweeper game implemented in C++ with clean object-oriented design.
 </ul>
 
 ### ScreenShots:
+![image alt](https://github.com/Imran1720/ConsoleMinesweeper/blob/1a9bbbfeba83dc782a6a99d36fdd9f58b3bf1ce2/Output/Output_Screenshots.png)
 
 ## How to Play:
 <ol>
