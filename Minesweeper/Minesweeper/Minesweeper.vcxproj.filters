@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Gameplay\Intro">
       <UniqueIdentifier>{62cc27c5-2898-44c6-b45d-8d6e4cce1ab4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay\Board">
+      <UniqueIdentifier>{fb838738-ae7e-41a7-829d-6c343a316771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay\Board">
+      <UniqueIdentifier>{7b3ab2bc-b037-415d-9dce-7a7cda246dc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -42,6 +48,9 @@
     <ClCompile Include="GameInstructions.cpp">
       <Filter>Source Files\Gameplay\Intro</Filter>
     </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files\Gameplay\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -49,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="GameInstructions.h">
       <Filter>Header Files\Gameplay\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files\Gameplay\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

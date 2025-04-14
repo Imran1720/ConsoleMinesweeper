@@ -7,17 +7,32 @@ namespace Main
 	GameLoop::GameLoop()
 	{
 		is_game_over = false;
+		is_first_cell = true;
 		game_intro = new GameInstructions();
+		game_board = new Board();
 	}
 
 	GameLoop::~GameLoop()
 	{
-
+		Destroy();
 	}
 
 	bool GameLoop::IsGameRunning()
 	{
 		return is_game_over;
+	}
+
+	void GameLoop::GetPlayerInput()
+	{
+		cout << "\n\nEnter X coordinate of cell : ";
+		cin >> cell_position_x;
+		cout << "Enter Y coordinate of cell : ";
+		cin >> cell_position_y;
+	}
+
+	void GameLoop::OpenCell(int position_x, int position_y)
+	{
+
 	}
 
 	void GameLoop::Play()
@@ -29,7 +44,15 @@ namespace Main
 		cin >> choice;
 		if (choice == 's' || choice == 'S')
 		{
-
+			game_board->DisplayBoard();
+			GetPlayerInput();
+			if (is_first_cell)
+			{
+				game_board->PlaceMines(cell_position_x,cell_position_y);
+				game_board->InitializeCells();
+				game_board->DisplayBoard();
+				is_first_cell = false;
+			}
 		}
 		else
 		{
@@ -40,6 +63,7 @@ namespace Main
 	void GameLoop::Destroy()
 	{
 		delete game_intro;
+		delete game_board;
 	}
 	void GameLoop::HandleGameOver()
 	{
