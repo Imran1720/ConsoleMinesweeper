@@ -4,25 +4,20 @@ namespace Gameplay
 {
 	namespace CellSpace
 	{
-		void Cell::SetCellValue(int value)
+		Cell::Cell()
 		{
-			cell_value = value;
+			cell_value = 0;
+			cell_state = CellState::CLOSED;
 		}
-		void Cell::SetState(CellState state)
-		{
-			cell_state = state;
-		}
-		int Cell::GetCellValue()
-		{
-			return cell_value;
-		}
-		CellState Cell::GetCellState()
-		{
-			return cell_state;
-		}
-		bool Cell::IsMine()
-		{
-			return cell_value==9;
-		}
+		
+		void Cell::SetState(CellState state) { cell_state = state; }
+
+		void Cell::SetCellValue(int value) { cell_value = value; }
+		
+		CellState Cell::GetCellState() { return cell_state; }
+		
+		int Cell::GetCellValue() { return cell_value; }
+
+		bool Cell::IsMine() { return cell_value==-1; }
 	}
 }
