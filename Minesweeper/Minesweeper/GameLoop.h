@@ -24,10 +24,13 @@ namespace Main
 			int cell_position_y;
 
 			bool is_first_cell;
+			bool is_game_running;
 
 			void Destroy();
 
 			void HandleGameOver();
+
+			bool CheckGameEnd();
 
 		public:
 			GameLoop();

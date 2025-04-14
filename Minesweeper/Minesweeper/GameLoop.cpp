@@ -8,6 +8,7 @@ namespace Main
 	{
 		is_game_over = false;
 		is_first_cell = true;
+		is_game_running = true;
 		game_intro = new GameInstructions();
 		game_board = new Board();
 	}
@@ -44,20 +45,27 @@ namespace Main
 		cin >> choice;
 		if (choice == 's' || choice == 'S')
 		{
-			game_board->DisplayBoard();
-			GetPlayerInput();
-			if (is_first_cell)
+			while (is_game_running )
 			{
-				game_board->PlaceMines(cell_position_x,cell_position_y);
-				game_board->InitializeCells();
 				game_board->DisplayBoard();
-				is_first_cell = false;
+				GetPlayerInput();
+				if (is_first_cell)
+				{
+					game_board->PlaceMines(cell_position_x, cell_position_y);
+					game_board->InitializeCells();
+					is_first_cell = false;
+				}
+
+				game_board->OpenCell(cell_position_x, cell_position_y);
+				if (CheckGameEnd())
+				{
+					break;
+				}
+
+
 			}
 		}
-		else
-		{
-			HandleGameOver();
-		}
+		HandleGameOver();
 	}
 
 	void GameLoop::Destroy()
@@ -67,11 +75,29 @@ namespace Main
 	}
 	void GameLoop::HandleGameOver()
 	{
-		cout << "---------------------------------------------------------" << endl;
-		cout << "|\t\t\tGAME OVER\t\t\t|" << endl;
-		cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
-		cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
-		cout << "---------------------------------------------------------" << endl;
-		cout << endl << endl;
+		if (game_board->IsGameWon())
+		{
+			cout << "---------------------------------------------------------" << endl;
+			cout << "|\t\t\tYOU WON!!\t\t\t|" << endl;
+			cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
+			cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
+			cout << "---------------------------------------------------------" << endl;
+			cout << endl << endl;
+		}
+
+		if (game_board->IsGameLost())
+		{
+			cout << "---------------------------------------------------------" << endl;
+			cout << "|\t\t\tGAME OVER!!\t\t\t|" << endl;
+			cout << "|\t\t\tTHANK YOU\t\t\t|" << endl;
+			cout << "|\t\t    SEE YOU NEXT TIME        \t\t|" << endl;
+			cout << "---------------------------------------------------------" << endl;
+			cout << endl << endl;
+		}
+	}
+	bool GameLoop::CheckGameEnd()
+	{
+
+		return (game_board->IsGameWon() || game_board->IsGameLost());
 	}
 }
