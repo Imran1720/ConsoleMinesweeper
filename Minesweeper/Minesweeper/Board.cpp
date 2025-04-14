@@ -103,18 +103,19 @@ namespace Gameplay
 
 		void Board::OpenCell(int x_position, int y_position)
 		{
-			if (board[x_position][y_position]->GetCellValue() == mine_value)
+			Cell* current_cell = board[x_position][y_position];
+			if (current_cell->GetCellValue() == mine_value)
 			{
 				RevealAllMines();
 				is_game_over = true;
 				return;
 			}
-			if(board[x_position][y_position]->GetCellState() == CellState::OPENED)
+			if(current_cell->GetCellState() == CellState::OPENED)
 			{
 				return;
 			}
-			opened_cell_count++;
-			board[x_position][y_position]->SetState(CellState::OPENED);
+			
+			OpenAdjacentCells(x_position, y_position);
 		}
 
 		void Board::InitializeCells()
@@ -180,6 +181,33 @@ namespace Gameplay
 			}
 
 			return ' ';
+		}
+
+		void Board::OpenAdjacentCells(int x_position, int y_position)
+		{
+			if (!IsValidPosition(x_position, y_position)) return;
+
+			Cell* current_cell = board[x_position][y_position];
+
+			if (current_cell->IsMine() || current_cell->GetCellState() == CellState::OPENED) return;
+
+			current_cell->SetState(CellState::OPENED);
+			opened_cell_count++;
+
+			if (current_cell->GetCellValue() > 0) return;
+
+			for (int i = x_position - 1; i <= x_position + 1; i++)
+			{
+				for (int j = y_position - 1; j <= y_position + 1; j++)
+				{
+					if (!(i == x_position && j == y_position))
+					{
+						OpenAdjacentCells(i,j);
+					}
+
+				}
+			}
+
 		}
 
 		void Board::RevealAllMines()

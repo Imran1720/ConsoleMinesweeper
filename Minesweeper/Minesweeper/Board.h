@@ -42,6 +42,7 @@ namespace Gameplay
 
 				bool IsValidPosition(int x_position, int y_position);
 				char GetCellValue(Cell* cell);
+				void OpenAdjacentCells(int x_position, int y_position);
 
 				void CleanUpBoard();
 
@@ -64,6 +65,7 @@ namespace Gameplay
 		
 				//Utility
 				int GetMaxCoordinate();
+
 
 		};
 	}
