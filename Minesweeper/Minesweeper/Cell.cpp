@@ -18,6 +18,6 @@ namespace Gameplay
 		
 		int Cell::GetCellValue() { return cell_value; }
 
-		bool Cell::IsMine() { return cell_value==9; }
+		bool Cell::IsMine() { return cell_value==-1; }
 	}
 }

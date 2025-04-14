@@ -18,7 +18,7 @@ namespace Main
 		game_intro = new GameInstructions();
 		game_board = new Board();
 
-		cell_position_upper_limit = game_board->GetPositionUpperLimit();
+		cell_position_upper_limit = game_board->GetMaxCoordinate();
 		cell_position_lower_limit = 0;
 	}
 
@@ -54,8 +54,7 @@ namespace Main
 
 		if (is_first_cell)
 		{
-			game_board->PlaceMines(cell_position_x, cell_position_y);
-			game_board->InitializeCells();
+			game_board->CreateBoard(cell_position_x, cell_position_y);
 			is_first_cell = false;
 		}
 
