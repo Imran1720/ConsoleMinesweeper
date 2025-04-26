@@ -1,6 +1,14 @@
 #  💣 Minesweeper Console Game 💣
 A classic Minesweeper game implemented in C++ with clean object-oriented design. Built as a console application, this game offers a smooth, interactive experience that mimics the traditional Minesweeper puzzle with randomized mines and cell opening logic.The first cell opened is always safe. The game automatically calculates the number of adjacent mines for each cell and displays it once the cell is opened.
 
+### Gameplay:
+![image alt](https://github.com/Imran1720/ConsoleMinesweeper/blob/39dbbdf4563290e87e6bccdeb3dbb0a55831565c/Output/Console%20Minesweeper.gif)
+
+
+### ScreenShots:
+![image alt](https://github.com/Imran1720/ConsoleMinesweeper/blob/699cb2653637ac168ebe9673249025c7d660e0a0/Output/Output_Screenshots.png)
+
+
 ### ✨ Features
 <ol>
 <li><b> 10x10 board size</b></li>
@@ -27,9 +35,6 @@ A classic Minesweeper game implemented in C++ with clean object-oriented design.
   <li> Numbers (0-9) for cells indicating adjacent mine counts</li>
   <li> "*" to reveal mines after game over</li>
 </ul>
-
-### ScreenShots:
-![image alt](https://github.com/Imran1720/ConsoleMinesweeper/blob/699cb2653637ac168ebe9673249025c7d660e0a0/Output/Output_Screenshots.png)
 
 ## How to Play:
 <ol>
